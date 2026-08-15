@@ -398,7 +398,7 @@ numbers.RemoveAll(n => n % 2 == 0); // 移除所有偶数
 
 > 📌 **参考项目**：`stu0729/0729作业/0729作业/Program.cs` 中 `Mylist<T>` 类使用 `Func<T, bool>` 实现自定义 Find 方法。
 
-## 3.4 自定义泛型集合（类似 List<T>）
+## 3.4 自定义泛型集合（类似 List`<T>`）
 
 ```csharp
 // 手动实现简化版泛型列表

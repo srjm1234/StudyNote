@@ -794,7 +794,7 @@ dataGridView1.DataSource = list;
 list.Add(new People("张三", "12", "男", "郑州"));  // 自动刷新界面
 ```
 
-> 💡 **BindingList<T>** 相比 `List<T>` 的优势：增删元素时自动通知 DataGridView 更新界面。
+> 💡 **BindingList`<T>`** 相比 `List<T>` 的优势：增删元素时自动通知 DataGridView 更新界面。
 
 ---
 
