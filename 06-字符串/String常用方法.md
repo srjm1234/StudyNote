@@ -233,3 +233,4 @@ Console.WriteLine(Rate.StrIndex(arr, "橘子"));  // → 2
 - [[07-方法/方法(函数)]] — 手写 Contains / StartStr / EndStr 字符串方法
 - [[01-基础语法/命名空间]] — 类库引用（自定义工具类）
 - [[08-面向对象/类与对象/方法重载]] — 方法重载（StrIndex 重载）
+``
