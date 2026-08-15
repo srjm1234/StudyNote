@@ -346,7 +346,7 @@ string name = emp[25];  // → "张三"
 public class Car
 {
     public string PlateNumber { get; set; }
-    public List<string> Handcards { get; set; }  // 引用类型，默认 null
+    public List&lt;string&gt; Handcards { get; set; }  // 引用类型，默认 null
 
     // ❌ 错误：只初始化了字段，属性未初始化
     public Car() { }
@@ -355,7 +355,7 @@ public class Car
     public Car(string plate)
     {
         PlateNumber = plate;
-        Handcards = new List<string>();  // 引用类型必须 new
+        Handcards = new List&lt;string&gt;();  // 引用类型必须 new
     }
 }
 ```
@@ -384,16 +384,16 @@ class Landlord : Player
 ## 3.3 Lambda 表达式与委托
 
 ```csharp
-// 基本语法：(参数) => 表达式 或 (参数) => { 语句块 }
-Func<int, int, int> add = (a, b) => a + b;
-Action<string> print = msg => Console.WriteLine(msg);
-Predicate<int> isEven = n => n % 2 == 0;
+// 基本语法：(参数) =&gt; 表达式 或 (参数) =&gt; { 语句块 }
+Func&lt;int, int, int&gt; add = (a, b) =&gt; a + b;
+Action&lt;string&gt; print = msg =&gt; Console.WriteLine(msg);
+Predicate&lt;int&gt; isEven = n =&gt; n % 2 == 0;
 
 // 集合中的使用
-List<int> numbers = new List<int> { 1, 2, 3, 4, 5, 6 };
-numbers.Find(n => n > 3);          // → 4
-numbers.ForEach(n => Console.WriteLine(n));
-numbers.RemoveAll(n => n % 2 == 0); // 移除所有偶数
+List&lt;int&gt; numbers = new List&lt;int&gt; { 1, 2, 3, 4, 5, 6 };
+numbers.Find(n =&gt; n &gt; 3);          // → 4
+numbers.ForEach(n =&gt; Console.WriteLine(n));
+numbers.RemoveAll(n =&gt; n % 2 == 0); // 移除所有偶数
 ```
 
 > 📌 **参考项目**：`stu0729/0729作业/0729作业/Program.cs` 中 `Mylist<T>` 类使用 `Func<T, bool>` 实现自定义 Find 方法。
@@ -402,7 +402,7 @@ numbers.RemoveAll(n => n % 2 == 0); // 移除所有偶数
 
 ```csharp
 // 手动实现简化版泛型列表
-public class MyList<T>
+public class MyList&lt;T&gt;
 {
     private T[] _items = new T[0];
 
@@ -420,11 +420,11 @@ public class MyList<T>
         set { _items[index] = value; }
     }
 
-    public int Count() => _items.Length;
+    public int Count() =&gt; _items.Length;
 }
 
 // 使用
-MyList<string> list = new MyList<string>();
+MyList&lt;string&gt; list = new MyList&lt;string&gt;();
 list.Add("123");
 list.Add("1234");
 Console.WriteLine(list[1]);   // → 1234
@@ -526,14 +526,14 @@ if (Fns != null) Fns(10);
 
 ```csharp
 // 自定义泛型委托
-public delegate bool MyDelegate<T>(T t);
+public delegate bool MyDelegate&lt;T&gt;(T t);
 
 // 使用
 int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8 };
-Find(nums, (num) => num % 2 == 0);  // 查找第一个偶数
+Find(nums, (num) =&gt; num % 2 == 0);  // 查找第一个偶数
 
 string[] names = { "张三", "李四", "王五", "赵六" };
-Find(names, n => n.StartsWith("王"));  // 查找姓王的
+Find(names, n =&gt; n.StartsWith("王"));  // 查找姓王的
 ```
 
 > 📌 **参考项目**：`stu0730/泛型委托/Program.cs`
@@ -551,14 +551,14 @@ Find(names, n => n.StartsWith("王"));  // 查找姓王的
 ```csharp
 // 使用 Action 和 Func 代替自定义委托
 Action fn1 = F1;                          // 无参无返回值
-Action<int> fn2 = F2;                     // 一个 int 参数，无返回值
-Action<string> fn3 = F3;                  // 一个 string 参数，无返回值
-Func<string, int> fn4 = F4;               // string 参数，返回 int
+Action&lt;int&gt; fn2 = F2;                     // 一个 int 参数，无返回值
+Action&lt;string&gt; fn3 = F3;                  // 一个 string 参数，无返回值
+Func&lt;string, int&gt; fn4 = F4;               // string 参数，返回 int
 
 // 传入方法作为参数
 public void Fn1(Action fn) { fn(); }
-public void Fn2(Action<int> fn) { fn(1); }
-public void Fn4(Func<string, int> fn) { int result = fn("test"); }
+public void Fn2(Action&lt;int&gt; fn) { fn(1); }
+public void Fn4(Func&lt;string, int&gt; fn) { int result = fn("test"); }
 ```
 
 > 📌 **参考项目**：`stu0730/内置委托类型/Program.cs`
@@ -684,7 +684,7 @@ class WaterStatus
 
     public void Heat()
     {
-        for (int i = 0; i <= 100; i += 10)
+        for (int i = 0; i &lt;= 100; i += 10)
         {
             Water?.Invoke(i);      // 触发事件
             Thread.Sleep(500);
@@ -694,7 +694,7 @@ class WaterStatus
 
 class Monitor
 {
-    public void Show(int temp) => Console.WriteLine($"当前水温：{temp} ℃");
+    public void Show(int temp) =&gt; Console.WriteLine($"当前水温：{temp} ℃");
 }
 
 class Alarm
@@ -724,37 +724,37 @@ water.Heat();
 ```csharp
 class Boiler
 {
-    public event Action<double> THigh;   // 温度过高
-    public event Action<double> TLow;    // 温度过低
-    public event Action<double> PHigh;   // 压力过高
-    public event Action<double> PLow;    // 压力过低
-    public event Action<double, double> OnLog;  // 日志事件
+    public event Action&lt;double&gt; THigh;   // 温度过高
+    public event Action&lt;double&gt; TLow;    // 温度过低
+    public event Action&lt;double&gt; PHigh;   // 压力过高
+    public event Action&lt;double&gt; PLow;    // 压力过低
+    public event Action&lt;double, double&gt; OnLog;  // 日志事件
 
     private double _temperature;
     public double Temperature
     {
-        get => _temperature;
+        get =&gt; _temperature;
         set
         {
             _temperature = value;
-            if (value > 300) THigh?.Invoke(value);
-            if (value < 200) TLow?.Invoke(value);
+            if (value &gt; 300) THigh?.Invoke(value);
+            if (value &lt; 200) TLow?.Invoke(value);
         }
     }
 
     private double _pressure;
     public double Pressure
     {
-        get => _pressure;
+        get =&gt; _pressure;
         set
         {
             _pressure = value;
-            if (value > 2000) PHigh?.Invoke(value);
-            if (value < 500) PLow?.Invoke(value);
+            if (value &gt; 2000) PHigh?.Invoke(value);
+            if (value &lt; 500) PLow?.Invoke(value);
         }
     }
 
-    public void Log() => OnLog?.Invoke(_temperature, _pressure);
+    public void Log() =&gt; OnLog?.Invoke(_temperature, _pressure);
 }
 
 // 使用
@@ -766,7 +766,7 @@ boiler.THigh += tempMonitor.High;   // 温度过高 → 显示警告
 boiler.TLow += tempMonitor.Low;     // 温度过低 → 显示警告
 boiler.PHigh += pressMonitor.High;  // 压力过高 → 显示警告
 boiler.PLow += pressMonitor.Low;    // 压力过低 → 显示警告
-boiler.OnLog += (t, p) => Console.WriteLine($"[日志] T={t}, P={p}");
+boiler.OnLog += (t, p) =&gt; Console.WriteLine($"[日志] T={t}, P={p}");
 ```
 
 > 📌 **参考项目**：`stu0730/0730作业/0730作业/Program.cs`（锅炉监控）、`stu0730/练习/Program.cs`（水温监控）
@@ -800,45 +800,45 @@ boiler.OnLog += (t, p) => Console.WriteLine($"[日志] T={t}, P={p}");
 
 ```csharp
 // 非泛型：只能存 int
-List<int> numbers = new List<int>();
+List&lt;int&gt; numbers = new List&lt;int&gt;();
 
 // 非泛型：只能存 string
-List<string> names = new List<string>();
+List&lt;string&gt; names = new List&lt;string&gt;();
 
 // 泛型：可以用任何类型
-MyList<T> list = new MyList<int>();    // T = int
-MyList<T> list2 = new MyList<string>(); // T = string
+MyList&lt;T&gt; list = new MyList&lt;int&gt;();    // T = int
+MyList&lt;T&gt; list2 = new MyList&lt;string&gt;(); // T = string
 ```
 
 ## 5.2 泛型类
 
 ```csharp
 // 定义泛型类
-public class People<TKey, TValue>
+public class People&lt;TKey, TValue&gt;
 {
     public TKey A { get; set; }
     public TValue B { get; set; }
 }
 
 // 使用
-People<int, string> person = new People<int, string>();
+People&lt;int, string&gt; person = new People&lt;int, string&gt;();
 person.A = 1;
 person.B = "张三";
 
 // 泛型在接口中使用
-public interface IBook<T>
+public interface IBook&lt;T&gt;
 {
     T Id { get; set; }
     T Name { get; set; }
 }
 
-class IntBook : IBook<int>
+class IntBook : IBook&lt;int&gt;
 {
     public int Id { get; set; }
     public int Name { get; set; }
 }
 
-class StringBook : IBook<string>
+class StringBook : IBook&lt;string&gt;
 {
     public string Id { get; set; }
     public string Name { get; set; }
@@ -851,7 +851,7 @@ class StringBook : IBook<string>
 public class Test
 {
     // 泛型方法：类型参数在方法名后声明
-    public T Find<T>(T[] array, Predicate<T> condition)
+    public T Find&lt;T&gt;(T[] array, Predicate&lt;T&gt; condition)
     {
         foreach (T item in array)
         {
@@ -864,7 +864,7 @@ public class Test
 
 // 使用
 int[] nums = { 1, 2, 3, 4, 5 };
-int found = test.Find(nums, n => n > 3);  // → 4
+int found = test.Find(nums, n =&gt; n &gt; 3);  // → 4
 ```
 
 ## 5.4 泛型约束（where）
@@ -883,19 +883,19 @@ int found = test.Find(nums, n => n > 3);  // → 4
 class Test
 {
     // T 只能是值类型（int, double, bool 等）
-    public void Fn1<T>(T v) where T : struct { }
+    public void Fn1&lt;T&gt;(T v) where T : struct { }
 
     // T 只能是引用类型（string, class 等）
-    public void Fn2<T>(T v) where T : class { }
+    public void Fn2&lt;T&gt;(T v) where T : class { }
 
     // T 必须是 People 或其派生类
-    public void Fn3<T>(T v) where T : People { }
+    public void Fn3&lt;T&gt;(T v) where T : People { }
 
     // T 必须实现 IPeople 接口
-    public void Fn4<T>(T v) where T : IPeople { }
+    public void Fn4&lt;T&gt;(T v) where T : IPeople { }
 
     // T 必须有公共无参构造函数
-    public T Create<T>() where T : new() => new T();
+    public T Create&lt;T&gt;() where T : new() =&gt; new T();
 }
 
 // 测试
@@ -1244,18 +1244,18 @@ public class Car
 ```csharp
 public class Stopcar
 {
-    private List<Car> _cars = new List<Car>();
+    private List&lt;Car&gt; _cars = new List&lt;Car&gt;();
     private const int Capacity = 10;  // 车位容量
 
     // 入场
     public void CarIn(string plate)
     {
-        if (_cars.Count >= Capacity)
+        if (_cars.Count &gt;= Capacity)
         {
             Console.WriteLine("车位已满");
             return;
         }
-        if (_cars.Exists(c => c.PlateNumber == plate))
+        if (_cars.Exists(c =&gt; c.PlateNumber == plate))
         {
             Console.WriteLine("已存在车辆");
             return;
@@ -1267,7 +1267,7 @@ public class Stopcar
     // 出场（含费用计算）
     public void CarOut(string plate)
     {
-        int index = _cars.FindIndex(c => c.PlateNumber == plate);
+        int index = _cars.FindIndex(c =&gt; c.PlateNumber == plate);
         if (index == -1)
         {
             Console.WriteLine("车辆不存在");
@@ -1283,7 +1283,7 @@ public class Stopcar
 
         // 费用计算（按分钟计费）
         int minutes = (int)duration.TotalMinutes;
-        int fee = minutes < 30 ? 5 : 5 + (minutes - 30) * 10;
+        int fee = minutes &lt; 30 ? 5 : 5 + (minutes - 30) * 10;
         Console.WriteLine($"停车时长：{minutes} 分钟");
         Console.WriteLine($"停车应缴费用 {fee}￥");
 
@@ -1400,12 +1400,12 @@ public class Book
 ```csharp
 public class Library
 {
-    public static List<Book> books = new List<Book>();
+    public static List&lt;Book&gt; books = new List&lt;Book&gt;();
     public static string booksPath = @"../../Data/books.txt";
     public static string recordsPath = @"../../Data/borrow_records.txt";
 
     // 从文件加载图书数据
-    public static List<Book> LoadBooks()
+    public static List&lt;Book&gt; LoadBooks()
     {
         string[] lines = File.ReadAllLines(booksPath);
         foreach (string line in lines)
@@ -1615,14 +1615,14 @@ public Game(string p1, string p2, string p3)
 
 ```csharp
 // ❌ 当前实现（有偏差）
-for (var i = 0; i < cards.Count; i++)
+for (var i = 0; i &lt; cards.Count; i++)
 {
     int r = rnd.Next(cards.Count);
     (cards[i], cards[r]) = (cards[r], cards[i]);
 }
 
 // ✅ 标准 Fisher-Yates（均匀随机）
-for (int i = cards.Count - 1; i > 0; i--)
+for (int i = cards.Count - 1; i &gt; 0; i--)
 {
     int r = rnd.Next(i + 1);
     (cards[i], cards[r]) = (cards[r], cards[i]);

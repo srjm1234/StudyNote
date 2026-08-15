@@ -81,10 +81,10 @@ foreach (Car car in cards.Values) { }
 
 ```csharp
 // 字典的 value 也可以是另一个字典
-Dictionary<string, Dictionary<string, DateTime>> card =
-    new Dictionary<string, Dictionary<string, DateTime>>();
+Dictionary&lt;string, Dictionary&lt;string, DateTime&gt;&gt; card =
+    new Dictionary&lt;string, Dictionary&lt;string, DateTime&gt;&gt;();
 
-card.Add("豫A.88888", new Dictionary<string, DateTime>()
+card.Add("豫A.88888", new Dictionary&lt;string, DateTime&gt;()
 {
     { "豫A.88888", DateTime.Now }
 });
@@ -128,14 +128,14 @@ class Car
 ### 写入文件
 
 ```csharp
-List<Car> listCard = new List<Car>();
+List&lt;Car&gt; listCard = new List&lt;Car&gt;();
 listCard.Add(cards["豫A.88888"]);
 listCard.Add(cards["豫A.22222"]);
 
 // 将列表写入文件
 WriteCard(listCard);
 
-public static void WriteCard(List<Car> cars)
+public static void WriteCard(List&lt;Car&gt; cars)
 {
     FileStream fs = new FileStream(@"./card.txt", FileMode.Create, FileAccess.Write);
     StreamWriter sw = new StreamWriter(fs);
@@ -222,9 +222,9 @@ fn();              // 调用委托 = 调用 Fn1()
 ```csharp
 // 语法：访问修饰符 delegate 返回值类型 委托名(参数列表)
 public delegate void MyAction();                    // 无参无返回值
-public delegate void MyAction<T>(T obj);            // 泛型委托
-public delegate TResult MyFunc<TResult>();          // 有返回值
-public delegate TResult MyFunc<T, TResult>(T obj);  // 泛型 + 有返回值
+public delegate void MyAction&lt;T&gt;(T obj);            // 泛型委托
+public delegate TResult MyFunc&lt;TResult&gt;();          // 有返回值
+public delegate TResult MyFunc&lt;T, TResult&gt;(T obj);  // 泛型 + 有返回值
 ```
 
 ### Action 与 Func（内置委托）
@@ -242,30 +242,30 @@ public delegate TResult MyFunc<T, TResult>(T obj);  // 泛型 + 有返回值
 Action fn1 = Fn1;              // 绑定无参方法
 fn1();                         // 调用
 
-Action<string> fn2 = Fn2;      // 绑定带 string 参数的方法
+Action&lt;string&gt; fn2 = Fn2;      // 绑定带 string 参数的方法
 fn2("Hello");                  // 调用
 
-Func<int> fn3 = Fn3;           // 绑定有返回值的方法
+Func&lt;int&gt; fn3 = Fn3;           // 绑定有返回值的方法
 int result = fn3();            // → 0
 
-Func<string, int> fn4 = Fn4;   // 带参数 + 返回值
+Func&lt;string, int&gt; fn4 = Fn4;   // 带参数 + 返回值
 int result2 = fn4("Hello");    // → 0
 ```
 
 ### Lambda 表达式
 
 ```csharp
-// Lambda 格式：(参数列表) => { 函数体 }
+// Lambda 格式：(参数列表) =&gt; { 函数体 }
 
 // 无参
-Action fn1 = () => { Console.WriteLine("Lambda 被调用"); };
+Action fn1 = () =&gt; { Console.WriteLine("Lambda 被调用"); };
 
 // 有参
-Action<int> fn2 = (int v) => { Console.WriteLine("参数值：" + v); };
+Action&lt;int&gt; fn2 = (int v) =&gt; { Console.WriteLine("参数值：" + v); };
 
 // 有返回值
-Func<int> fn3 = () => { Console.WriteLine("有返回值"); return 0; };
-Func<int, bool> fn4 = (int v) => { Console.WriteLine(v); return false; };
+Func&lt;int&gt; fn3 = () =&gt; { Console.WriteLine("有返回值"); return 0; };
+Func&lt;int, bool&gt; fn4 = (int v) =&gt; { Console.WriteLine(v); return false; };
 ```
 
 ### 多播委托
@@ -441,34 +441,34 @@ WriteArr(new string[] { "a", "b", "c" });
 ### 泛型方法
 
 ```csharp
-// 用 <T> 声明泛型参数，一套方法支持多种类型
-public static void Write<T>(T[] arr) { }
+// 用 &lt;T&gt; 声明泛型参数，一套方法支持多种类型
+public static void Write&lt;T&gt;(T[] arr) { }
 
 Write(new int[] { 1, 2, 3 });       // T = int
 Write(new string[] { "a", "b", "c" }); // T = string
-Write<string>(new string[] { "a", "b", "c" }); // 显式指定类型
+Write&lt;string&gt;(new string[] { "a", "b", "c" }); // 显式指定类型
 ```
 
 ### 泛型接口
 
 ```csharp
 // 泛型接口
-public interface IBook<T>
+public interface IBook&lt;T&gt;
 {
     T Value { get; set; }
 }
 
 // 实现时指定具体类型
-class Book : IBook<string>
+class Book : IBook&lt;string&gt;
 {
     public string Value { get; set; }
 }
 
 // 泛型接口继承
-interface IA<TA> { TA V { get; set; } }
-interface IB<TB> : IA<TB> { TB V2 { get; set; } }
+interface IA&lt;TA&gt; { TA V { get; set; } }
+interface IB&lt;TB&gt; : IA&lt;TB&gt; { TB V2 { get; set; } }
 
-class A : IB<int>
+class A : IB&lt;int&gt;
 {
     public int V { get; set; }
     public int V2 { get; set; }
@@ -479,14 +479,14 @@ class A : IB<int>
 
 ```csharp
 // 泛型类：多个类型参数
-class Test<T1, T2>
+class Test&lt;T1, T2&gt;
 {
     public T1 Value { get; set; }
     public T2 Value2 { get; set; }
 }
 
 // 使用
-Test<string, int> t = new Test<string, int>();
+Test&lt;string, int&gt; t = new Test&lt;string, int&gt;();
 t.Value = "123";
 t.Value2 = 123;
 ```

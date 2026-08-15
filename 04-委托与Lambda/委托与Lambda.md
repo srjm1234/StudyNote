@@ -149,14 +149,14 @@ C# 提供了两种内置委托类型，不需要自己声明：
 
 ```csharp
 // Action — 无返回值
-Action fn1 = () => { };                    // 无参
-Action<int> fn2 = (int a) => { };          // 1 个 int 参数
+Action fn1 = () =&gt; { };                    // 无参
+Action&lt;int&gt; fn2 = (int a) =&gt; { };          // 1 个 int 参数
 
 // Func — 有返回值
-Func<string, int> fn4 = (string a) => { return 0; };  // string 参数，返回 int
-Func<int> f = () => 42;                    // 无参有返回值
-Func<int, bool> fn = v => v > 0;           // 一参有返回值
-Func<int, int, bool> fn2 = (a, b) => a < b; // 两参有返回值
+Func&lt;string, int&gt; fn4 = (string a) =&gt; { return 0; };  // string 参数，返回 int
+Func&lt;int&gt; f = () =&gt; 42;                    // 无参有返回值
+Func&lt;int, bool&gt; fn = v =&gt; v &gt; 0;           // 一参有返回值
+Func&lt;int, int, bool&gt; fn2 = (a, b) =&gt; a &lt; b; // 两参有返回值
 ```
 
 ### 作为方法参数
@@ -165,8 +165,8 @@ Func<int, int, bool> fn2 = (a, b) => a < b; // 两参有返回值
 class Test
 {
     public static void Fn1(Action fn) { }              // 接收无返回值的函数
-    public static void Fn2(Action<int> fn) { }         // 接收 int 参数无返回值函数
-    public static void Fn4(Func<string, int> fn) { }   // 接收 string→int 函数
+    public static void Fn2(Action&lt;int&gt; fn) { }         // 接收 int 参数无返回值函数
+    public static void Fn4(Func&lt;string, int&gt; fn) { }   // 接收 string→int 函数
 }
 
 Test.Fn1(F1);       // 传入无参无返回值的方法
@@ -202,13 +202,13 @@ Array.Find(nums, v => v % 2 == 0);                   // 简写
 委托可以作为另一个委托的**参数类型**，形成嵌套。
 
 ```csharp
-Func<Func<int>, bool> fn2 = (Func<int> f) => { return false; };
+Func&lt;Func&lt;int&gt;, bool&gt; fn2 = (Func&lt;int&gt; f) =&gt; { return false; };
 
 // 传参示例：将函数作为参数传给方法
-Func<int, bool> fn = (int a) => { Console.WriteLine("1234"); return true; };
+Func&lt;int, bool&gt; fn = (int a) =&gt; { Console.WriteLine("1234"); return true; };
 Test(fn);
 
-public static void Test(Func<int, bool> Funct)
+public static void Test(Func&lt;int, bool&gt; Funct)
 {
     Funct('w');   // char 可以隐式转换为 int，'w' 实际传入 119
     Console.WriteLine("发发");
@@ -221,10 +221,10 @@ public static void Test(Func<int, bool> Funct)
 
 ```csharp
 // 声明泛型委托
-public delegate bool MyDelegate<T>(T t);
+public delegate bool MyDelegate&lt;T&gt;(T t);
 
 // 泛型方法中使用泛型委托
-public static T Find<T>(T[] nums, MyDelegate<T> del)
+public static T Find&lt;T&gt;(T[] nums, MyDelegate&lt;T&gt; del)
 {
     foreach (var num in nums)
     {
@@ -235,11 +235,11 @@ public static T Find<T>(T[] nums, MyDelegate<T> del)
 
 // 使用：查找第一个偶数
 int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8 };
-Find(nums, (num) => num % 2 == 0);    // → 2
+Find(nums, (num) =&gt; num % 2 == 0);    // → 2
 
 // 使用：查找第一个姓"王"的
 string[] names = { "张三", "李四", "王五", "赵六" };
-Find(names, n => n.StartsWith("王"));  // → "王五"
+Find(names, n =&gt; n.StartsWith("王"));  // → "王五"
 ```
 
 ## 关键知识点总结
@@ -249,9 +249,9 @@ Find(names, n => n.StartsWith("王"));  // → "王五"
 | 委托（Delegate） | 方法的类型，用于将方法作为参数传递或赋值给变量 |
 | 委托实例化 | `new 委托(方法名)` / 直接赋值 / `Invoke()` 调用 |
 | 多播委托 | `+=` 添加多个方法，按顺序执行；`-=` 移除 |
-| Func\<T\> | 有返回值的委托，最后一个泛型参数是返回值类型 |
-| Action\<T\> | 无返回值的委托 |
-| Lambda 表达式 | 匿名函数简写：(参数) => 表达式 |
+| Func\&lt;T\&gt; | 有返回值的委托，最后一个泛型参数是返回值类型 |
+| Action\&lt;T\&gt; | 无返回值的委托 |
+| Lambda 表达式 | 匿名函数简写：(参数) =&gt; 表达式 |
 | 空值保护 | `委托?.Invoke()` 避免 NullReferenceException |
 | char 转 int | C# 中 char 可隐式转为 int（Unicode 码） |
 

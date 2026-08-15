@@ -89,7 +89,7 @@ public partial class Form1 : Form
                 break;   // 客户端断开
             }
             string str = Encoding.UTF8.GetString(buffer);  // 解码
-            string msg = $"{DateTime.Now.ToString()}: {serverConnet.RemoteEndPoint} < = {str}";
+            string msg = $"{DateTime.Now.ToString()}: {serverConnet.RemoteEndPoint} &lt; = {str}";
             AddMsg(msg, false);
         }
     }
@@ -104,7 +104,7 @@ public partial class Form1 : Form
             if (serverConnet != null)
             {
                 serverConnet.Send(bytArr);
-                AddMsg($"My = >{str}");
+                AddMsg($"My = &gt;{str}");
                 richTextBox2.Clear();
             }
         }
@@ -132,8 +132,8 @@ public partial class Form1 : Form
     // ── 封装显示消息（跨线程更新 UI） ──
     private void AddMsg(string str, bool flag = true)
     {
-        string str1 = flag ? str : "< =" + str;
-        this.richTextBox1.BeginInvoke(new Action<string>((msg) =>
+        string str1 = flag ? str : "&lt; =" + str;
+        this.richTextBox1.BeginInvoke(new Action&lt;string&gt;((msg) =&gt;
         {
             richTextBox1.Text += msg;
             richTextBox1.Text += "\r\n";

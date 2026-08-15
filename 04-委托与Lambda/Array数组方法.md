@@ -108,35 +108,35 @@ Array.ForEach(names, Each);         // 遍历输出
 
 ```csharp
 // 从前查找，返回第一个满足条件的元素
-public static int Find_Num(int[] a, Func<int, bool> fn)
+public static int Find_Num(int[] a, Func&lt;int, bool&gt; fn)
 {
-    for (int i = 0; i < a.Length; i++)
+    for (int i = 0; i &lt; a.Length; i++)
         if (fn(a[i])) return a[i];
     return 0;
 }
 
 // 从前查找索引
-public static int Find_Index(int[] a, Func<int, bool> fn)
+public static int Find_Index(int[] a, Func&lt;int, bool&gt; fn)
 {
-    for (int i = 0; i < a.Length; i++)
+    for (int i = 0; i &lt; a.Length; i++)
         if (fn(a[i])) return i;
     return -1;
 }
 
 // 从后查找索引
-public static int Find_LastIndex(int[] a, Func<int, bool> fn)
+public static int Find_LastIndex(int[] a, Func&lt;int, bool&gt; fn)
 {
-    for (int i = a.Length - 1; i >= 0; i--)
+    for (int i = a.Length - 1; i &gt;= 0; i--)
         if (fn(a[i])) return i;
     return -1;
 }
 
 // 查找所有满足条件的元素
-public static int[] Find_AllNum(int[] a, Func<int, bool> fn)
+public static int[] Find_AllNum(int[] a, Func&lt;int, bool&gt; fn)
 {
     int[] b = new int[a.Length];
     int j = 0;
-    for (int i = 0; i < a.Length; i++)
+    for (int i = 0; i &lt; a.Length; i++)
         if (fn(a[i])) { b[j] = a[i]; j++; }
     return b;
 }

@@ -390,10 +390,10 @@ public partial class Form1 : Form
 ### 边界判断公式
 
 ```
-上边界：box.Location.Y > 0
-下边界：box.Location.Y < panel1.Height - box.Height
-左边界：box.Location.X > 0
-右边界：box.Location.X < panel1.Width - box.Width
+上边界：box.Location.Y &gt; 0
+下边界：box.Location.Y &lt; panel1.Height - box.Height
+左边界：box.Location.X &gt; 0
+右边界：box.Location.X &lt; panel1.Width - box.Width
 ```
 
 > 💡 **要点**：`panel1.Height - box.Height` 表示方块左上角能到达的最大 Y 值。
@@ -775,8 +775,8 @@ tabPage1.Hide();
 
 ```csharp
 // 绑定数据源
-dataGridView1.DataSource = books;         // 绑定 List<Book>
-dataGridView1.DataSource = recordBooks;    // 绑定 List<RecordBook>
+dataGridView1.DataSource = books;         // 绑定 List&lt;Book&gt;
+dataGridView1.DataSource = recordBooks;    // 绑定 List&lt;RecordBook&gt;
 
 // 数据模型
 public class Book
@@ -789,7 +789,7 @@ public class Book
 }
 
 // 使用 BindingList 支持动态更新
-BindingList<People> list = new BindingList<People>();
+BindingList&lt;People&gt; list = new BindingList&lt;People&gt;();
 dataGridView1.DataSource = list;
 list.Add(new People("张三", "12", "男", "郑州"));  // 自动刷新界面
 ```
@@ -1427,16 +1427,16 @@ private void button1_Click(object sender, EventArgs e)
 
 private void Add()
 {
-    List<string> list = new List<string>();
+    List&lt;string&gt; list = new List&lt;string&gt;();
     list.Add("这是第一段文本");
     list.Add("这是第二段文本");
 
-    for (int i = 0; i < list.Count; i++)
+    for (int i = 0; i &lt; list.Count; i++)
     {
         Thread.Sleep(2000);
 
         // 通过 BeginInvoke 在主线程中更新控件
-        textBox1.BeginInvoke(new Action<string>((value) =>
+        textBox1.BeginInvoke(new Action&lt;string&gt;((value) =&gt;
         {
             textBox1.Text += value + "  ";
         }), list[i]);
@@ -1496,8 +1496,8 @@ public class Student
     public string Sex { get; set; }
     public int Age { get; set; }
     public string Addr { get; set; }
-    public List<string> Book { get; set; } = new List<string>();      // 借阅书名
-    public List<string> BookId { get; set; } = new List<string>();    // 借阅书ID
+    public List&lt;string&gt; Book { get; set; } = new List&lt;string&gt;();      // 借阅书名
+    public List&lt;string&gt; BookId { get; set; } = new List&lt;string&gt;();    // 借阅书ID
     public string Path { get; set; }                                  // 头像路径
     public string Identity { get; set; }                              // 身份
 }

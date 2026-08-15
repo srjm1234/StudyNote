@@ -171,7 +171,7 @@ File.AppendAllText(logFile, DateTime.Now + " " + ex.Message + "\n");
 public partial class Form1 : Form
 {
     Socket listenSocket;
-    List<Socket> clients = new List<Socket>();   // 管理多个连接
+    List&lt;Socket&gt; clients = new List&lt;Socket&gt;();   // 管理多个连接
     private volatile bool _running = true;
 
     private void btnStart_Click(object sender, EventArgs e)
@@ -191,7 +191,7 @@ public partial class Form1 : Form
             {
                 Socket client = listenSocket.Accept();
                 clients.Add(client);
-                Thread recvThread = new Thread(() => ReceiveLoop(client)) { IsBackground = true };
+                Thread recvThread = new Thread(() =&gt; ReceiveLoop(client)) { IsBackground = true };
                 recvThread.Start();
             }
             catch (SocketException) { break; }   // Socket 关闭时退出

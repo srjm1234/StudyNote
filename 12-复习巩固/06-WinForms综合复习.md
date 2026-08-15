@@ -235,23 +235,23 @@ t.Start();
 
 > [!success]- 答案
 > ```csharp
-> int count = 10;
-> private void Form1_Load(object sender, EventArgs e)
-> {
->     timer1.Interval = 1000;
->     timer1.Start();
-> }
-> private void timer1_Tick(object sender, EventArgs e)
-> {
->     count--;
->     label1.Text = count.ToString();
->     if (count <= 0)
->     {
->         timer1.Stop();
->         MessageBox.Show("时间到");
->     }
-> }
-> ```
+&gt; int count = 10;
+&gt; private void Form1_Load(object sender, EventArgs e)
+&gt; {
+&gt;     timer1.Interval = 1000;
+&gt;     timer1.Start();
+&gt; }
+&gt; private void timer1_Tick(object sender, EventArgs e)
+&gt; {
+&gt;     count--;
+&gt;     label1.Text = count.ToString();
+&gt;     if (count &lt;= 0)
+&gt;     {
+&gt;         timer1.Stop();
+&gt;         MessageBox.Show("时间到");
+&gt;     }
+&gt; }
+&gt; ```
 
 **4. 实现一个简单聊天客户端：连接、发送、接收（线程 + BeginInvoke）。**
 

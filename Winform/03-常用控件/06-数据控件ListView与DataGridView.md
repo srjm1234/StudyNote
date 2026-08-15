@@ -81,12 +81,12 @@ private void Form1_SizeChanged(object sender, EventArgs e)
 ### 2.1 绑定数据源
 
 ```csharp
-// 绑定 List<T>（一次性显示）
-dataGridView1.DataSource = books;          // List<Book>
-dataGridView1.DataSource = recordBooks;    // List<RecordBook>
+// 绑定 List&lt;T&gt;（一次性显示）
+dataGridView1.DataSource = books;          // List&lt;Book&gt;
+dataGridView1.DataSource = recordBooks;    // List&lt;RecordBook&gt;
 
-// 绑定 BindingList<T>（增删时界面自动刷新）
-BindingList<People> list = new BindingList<People>();
+// 绑定 BindingList&lt;T&gt;（增删时界面自动刷新）
+BindingList&lt;People&gt; list = new BindingList&lt;People&gt;();
 dataGridView1.DataSource = list;
 list.Add(new People("张三", "12", "男", "郑州"));   // 自动刷新界面
 ```
@@ -126,12 +126,12 @@ foreach (var i in peoples)
 ### 2.4 通用查找方法（泛型 + 委托）
 
 ```csharp
-public delegate bool MyFn<T>(T obj);   // 自定义泛型委托
+public delegate bool MyFn&lt;T&gt;(T obj);   // 自定义泛型委托
 
 // 查找单个
-public T Find<T>(BindingList<T> list, MyFn<T> factory)
+public T Find&lt;T&gt;(BindingList&lt;T&gt; list, MyFn&lt;T&gt; factory)
 {
-    for (int i = 0; i < list.Count; i++)
+    for (int i = 0; i &lt; list.Count; i++)
     {
         if (factory(list[i])) return list[i];
     }
@@ -139,10 +139,10 @@ public T Find<T>(BindingList<T> list, MyFn<T> factory)
 }
 
 // 查找全部
-public List<T> FindAll<T>(BindingList<T> list, MyFn<T> factory)
+public List&lt;T&gt; FindAll&lt;T&gt;(BindingList&lt;T&gt; list, MyFn&lt;T&gt; factory)
 {
-    List<T> values = new List<T>();
-    for (int i = 0; i < list.Count; i++)
+    List&lt;T&gt; values = new List&lt;T&gt;();
+    for (int i = 0; i &lt; list.Count; i++)
     {
         if (factory(list[i])) values.Add(list[i]);
     }

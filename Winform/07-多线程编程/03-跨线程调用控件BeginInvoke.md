@@ -40,16 +40,16 @@ private void button1_Click(object sender, EventArgs e)
 
 private void Add()
 {
-    List<string> list = new List<string>();
+    List&lt;string&gt; list = new List&lt;string&gt;();
     list.Add("这是第一段文本");
     list.Add("这是第二段文本");
 
-    for (int i = 0; i < list.Count; i++)
+    for (int i = 0; i &lt; list.Count; i++)
     {
         Thread.Sleep(2000);   // 模拟耗时
 
         // ✅ 通过 BeginInvoke 回到主线程更新控件
-        textBox1.BeginInvoke(new Action<string>((value) =>
+        textBox1.BeginInvoke(new Action&lt;string&gt;((value) =&gt;
         {
             textBox1.Text += value + "  ";
         }), list[i]);
@@ -72,13 +72,13 @@ CheckForIllegalCrossThreadCalls = false;
 
 ```csharp
 // 写法一：BeginInvoke + 匿名委托（推荐）
-textBox1.BeginInvoke(new Action(() =>
+textBox1.BeginInvoke(new Action(() =&gt;
 {
     textBox1.Text = "更新内容";
 }));
 
 // 写法二：带参数
-textBox1.BeginInvoke(new Action<string>((msg) =>
+textBox1.BeginInvoke(new Action&lt;string&gt;((msg) =&gt;
 {
     textBox1.Text = msg;
 }), "内容");
@@ -88,7 +88,7 @@ private void UpdateText(string msg)
 {
     if (textBox1.InvokeRequired)          // 判断是否跨线程
     {
-        textBox1.BeginInvoke(new Action<string>(UpdateText), msg);
+        textBox1.BeginInvoke(new Action&lt;string&gt;(UpdateText), msg);
         return;
     }
     textBox1.Text = msg;
