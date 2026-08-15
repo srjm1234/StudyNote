@@ -1,0 +1,2 @@
+# StudyNote
+使用Obisdian做的学习笔记且使用agent协助
